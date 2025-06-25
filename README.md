@@ -1,4 +1,4 @@
-# Proyecto: Servidor GlusterFS con Alta Disponibilidad y Balanceo de Carga
+# Servidor GlusterFS con Alta Disponibilidad y Balanceo de Carga
 
 Este proyecto describe la instalación y configuración de un clúster GlusterFS con alta disponibilidad y balanceo de carga utilizando **CTDB** y **Samba**, implementado en máquinas virtuales con **Ubuntu Server 24.04**.
 
@@ -47,10 +47,18 @@ sudo systemctl enable glusterd
    echo '/dev/sdb1 /glusterdata xfs defaults 0 0' | sudo tee -a /etc/fstab
    sudo mount -a
    ```
+Para comprobar que se ha montando correctamente:
+   ```bash
+   df -h
+   ```
+Debe devolver algo como:
+![Image](https://github.com/user-attachments/assets/feb1a892-a0d1-4855-9ec5-91f1b0bedb02)
+Donde podemos ver que /dev/sdb1 está montado en /glusterdata
 
 3. Añadir IPs al archivo `/etc/hosts`.
-
----
+  En este caso
+  - `nodo1` : 192.268.2.104
+  - `nodo2` : 192.168.2.253
 
 ## 4. Configuración de GlusterFS
 
