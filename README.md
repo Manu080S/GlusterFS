@@ -132,7 +132,9 @@ Editar `/etc/samba/smb.conf`:
    private dir = /mnt/glustervol/lock
    netbios name = nodoX  # Diferente en cada nodo
    security = user
-
+```
+Al final del archivo añadir:
+```ini
 [glustertest]
    path = /mnt/glustervol
    read only = no
