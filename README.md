@@ -52,12 +52,14 @@ Para comprobar que se ha montando correctamente:
    df -h
    ```
 Debe devolver algo como:
+
 ![Image](https://github.com/user-attachments/assets/feb1a892-a0d1-4855-9ec5-91f1b0bedb02)
+
 Donde podemos ver que /dev/sdb1 está montado en /glusterdata
 
 3. Añadir IPs al archivo `/etc/hosts`.
   En este caso
-  - `nodo1` : 192.268.2.104
+  - `nodo1` : 192.168.2.104
   - `nodo2` : 192.168.2.253
 
 ## 4. Configuración de GlusterFS
