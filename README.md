@@ -172,9 +172,9 @@ Veremos las IPs virtuales y al lado un 0 o un 1; el 0 significa que es la ip est
 
 2. Añadir IPs en `/etc/hosts`.
 
-  192.168.2.104 nodo1
+    192.168.2.104 nodo1
    
-  192.168.2.253 nodo2
+    192.168.2.253 nodo2
 
 3. Montar volumen:
    ```bash
