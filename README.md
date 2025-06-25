@@ -171,22 +171,24 @@ Veremos las IPs virtuales y al lado un 0 o un 1; el 0 significa que es la ip est
    ```
 
 2. Añadir IPs en `/etc/hosts`.
+
   192.168.2.104 nodo1
+   
   192.168.2.253 nodo2
 
-4. Montar volumen:
+3. Montar volumen:
    ```bash
    sudo mkdir /mnt/glusterfs
    sudo mount -t glusterfs 192.168.2.200:/vol1 /mnt/glusterfs
    echo '192.168.2.200:/vol1 /mnt/glusterfs glusterfs defaults,_netdev 0 0' | sudo tee -a /etc/fstab
    ```
 
-5. Verificar replicación:
+4. Verificar replicación:
    ```bash
    echo "Test desde nodo3" | sudo tee /mnt/glusterfs/test.txt
    ```
 
-6. Desde nodo1 y nodo2:
+5. Desde nodo1 y nodo2:
    ```bash
    ls -l /glusterdata/vol1
    cat /glusterdata/vol1/test.txt
