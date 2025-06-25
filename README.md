@@ -154,8 +154,11 @@ ctdb status
 ctdb ip
 ```
 Ambos nodos tienen que estar marcados como OK:
+
 ![Image](https://github.com/user-attachments/assets/46e34521-706f-45f2-a623-28e85d7bf334)
+
 Veremos las IPs virtuales y al lado un 0 o un 1; el 0 significa que es la ip está activa en este nodo, el 1 significa que está activa en el otro nodo. 
+
 ![Image](https://github.com/user-attachments/assets/c4641b64-bb04-4189-ae85-199a14ba3058)
 
 ---
