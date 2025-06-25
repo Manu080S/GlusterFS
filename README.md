@@ -48,11 +48,9 @@ sudo systemctl enable glusterd
    sudo mount -a
    ```
       Para comprobar que se ha montando correctamente:
-   
          ```bash
          df -h
          ```
-
      Debe devolver algo como:
 
       ![Image](https://github.com/user-attachments/assets/feb1a892-a0d1-4855-9ec5-91f1b0bedb02)
