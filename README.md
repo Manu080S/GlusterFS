@@ -165,33 +165,67 @@ Veremos las IPs virtuales y al lado un 0 o un 1; el 0 significa que es la ip est
 
 ## 8. Cliente GlusterFS (nodo3)
 
-1. Instalar cliente:
+
+
+1. Crear una máquina virtual (nodo3) con red en modo *Adaptador puente*.
+2. Instalar Ubuntu Server 24.04.
+3. Actualizar el sistema:
    ```bash
-   sudo apt install glusterfs-client -y
+   sudo apt-get update && sudo apt-get upgrade -y
    ```
 
-2. Añadir IPs en `/etc/hosts`.
+4. Instalar glusterfs:
 
-    192.168.2.104 nodo1
-   
-    192.168.2.253 nodo2
+```bash
+sudo apt install glusterfs-server -y
+sudo systemctl start glusterd
+sudo systemctl enable glusterd
+```
 
-3. Montar volumen:
+5. Añadir un segundo disco (`/dev/sdb`) y crear partición:
    ```bash
-   sudo mkdir /mnt/glusterfs
-   sudo mount -t glusterfs 192.168.2.200:/vol1 /mnt/glusterfs
-   echo '192.168.2.200:/vol1 /mnt/glusterfs glusterfs defaults,_netdev 0 0' | sudo tee -a /etc/fstab
+   sudo fdisk /dev/sdb
+   # Opciones: n → p → 1 → Enter → Enter → w
+   sudo mkfs.xfs /dev/sdb1
    ```
 
-4. Verificar replicación:
+6. Montar y hacer persistente:
    ```bash
-   echo "Test desde nodo3" | sudo tee /mnt/glusterfs/test.txt
+   sudo mkdir /glusterdata
+   sudo mount /dev/sdb1 /glusterdata
+   echo '/dev/sdb1 /glusterdata xfs defaults 0 0' | sudo tee -a /etc/fstab
+   sudo mount -a
+   ```
+      Para comprobar que se ha montando correctamente:
+   ```bash
+   df -h
+   ```
+     Debe devolver algo como:
+
+      ![Image](https://github.com/user-attachments/assets/feb1a892-a0d1-4855-9ec5-91f1b0bedb02)
+
+      Donde podemos ver que /dev/sdb1 está montado en /glusterdata
+
+7. Añadir IP al archivo `/etc/hosts` de nodo1 y nodo2.
+  En este caso
+  - `nodo3` : 192.168.18.95
+
+8. Establecer relación de confianza:
+   En el nodo1
+   ```bash
+   gluster peer probe nodo3
    ```
 
-5. Desde nodo1 y nodo2:
+9. Crear bricks y volumen:
    ```bash
-   ls -l /glusterdata/vol1
-   cat /glusterdata/vol1/test.txt
+   sudo mkdir /glusterdata/vol1
+   gluster volume add-brick vol1 replica 3 nodo3:/glusterdata/vol1
+   ```
+
+10. Comprobar que se ha montado correctamente:
+   ```bash
+   gluster volume info
+   gluster volume status
    ```
 
 ---
